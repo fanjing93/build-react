@@ -33,13 +33,12 @@ function creatDom(fiber) {
 }
 
 function render(element, container) {
-  wipRoot = {
+  nextUnitOfWork = {
     dom: container,
     props: {
       children: [element],
     },
-  }
-  nextUnitOfWork = wipRoot;
+  };
 }
 
 let nextUnitOfWork = null;
@@ -60,6 +59,10 @@ requestIdleCallback(workLoop);
 function performUnitOfWork(fiber) {
   if (!fiber.dom) {
     fiber.dom = creatDom(fiber);
+  }
+
+  if (fiber.parent) {
+    fiber.parent.dom.appendChild(fiber.dom);
   }
 
   const element = fiber.props.children;
@@ -99,6 +102,7 @@ function performUnitOfWork(fiber) {
     }
     nextFiber = nextFiber.parent;
   }
+  // TODO return next unit of work
 }
 
 const Didact = {

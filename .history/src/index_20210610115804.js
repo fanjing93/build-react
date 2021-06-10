@@ -33,13 +33,12 @@ function creatDom(fiber) {
 }
 
 function render(element, container) {
-  wipRoot = {
+  nextUnitOfWork = {
     dom: container,
     props: {
       children: [element],
     },
-  }
-  nextUnitOfWork = wipRoot;
+  };
 }
 
 let nextUnitOfWork = null;
